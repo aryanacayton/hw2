@@ -16,13 +16,45 @@ std::string convToLower(std::string src)
 std::set<std::string> parseStringToWords(string rawWords)
 {
 
+  set<string> fixedWords;
 
+  string currentWord;
 
+  // go through the entire string 
+  for (unsigned int i = 0; i < rawWords.size(); i++) 
+  {
+    //if it is a lower or upper case leter a-z OR a number 
+    if ((rawWords[i] >= 'a' && rawWords[i] <= 'z') || (rawWords[i] >= 'A' && rawWords[i] <= 'Z') || (rawWords[i] >= '0' && rawWords[i] <= '9')) {
+      currentWord += rawWords[i];
+    }
 
+    else
+    {
+      //if it is already 2 characters, that ends this word 
+      if (currentWord.size() >= 2)
+      {
+        currentWord = convToLower(currentWord);
 
+        //word is ready to be added to fixedWords because it is lower case 
+        //and 2 or more characters in length 
+        fixedWords.insert(currentWord); 
+      }
 
+      //clear currentWord to start building a new word
+      currentWord = "";
+    }
 
+  } 
 
+  //before returning loop to make sure it is all correct 
+     if (currentWord.size() >= 2)
+      {
+        currentWord = convToLower(currentWord);
+        fixedWords.insert(currentWord); 
+
+      }
+
+  return fixedWords;
 
 
 }
